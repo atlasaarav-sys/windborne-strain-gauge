@@ -33,5 +33,3 @@ With one firmware command, both channels should jump by about 1000 µε (micro s
 - **Analog hygiene.** Each input has an RC anti-alias filter, and there's ESD protection (ESDA5V3SC5) at every gauge connector. Cable shields go to digital ground. The analog ground (**GNDA**: ADC AVSS, bridge, filter caps) is separate from digital ground and joins it at a single net tie near the ADC.
 - **Power entry built for a car harness.** The power path has reverse-polarity and ideal-diode protection (LM74502 with back-to-back MOSFETs) plus TVS clamping. A 12 V → 5 V buck (LMR51635) feeds a 3.3 V LDO. A **TPS2117** power mux switches over to USB-C automatically, so the board can be brought up on a bench with just a laptop.
 - **MCU and bus.** An STM32G473 handles processing, and a TCAN3413 with a jumper-selectable 120 Ω split termination connects to CAN. Test points are labeled on every rail and bus for bring-up.
-
-*Team context: this is a Longhorn Racing Solar team board. The strain gauge channel and the top-level integration are my design work. The power-entry, MCU, and CAN sheets build on the team's shared KiCad design-block library.*
