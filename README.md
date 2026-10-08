@@ -1,6 +1,6 @@
 # VCAT Strain Gauge Board — Aarav Artham
 
-A dual-channel strain gauge acquisition board for **Longhorn Racing Solar** (UT Austin's solar car team). It reads suspension strain from 350 Ω foil gauges and puts the data on the car's CAN telemetry bus. Designed in KiCad 10.
+A dual-channel strain gauge acquisition board for **Longhorn Racing Solar** (UT Austin's solar car team). It reads suspension strain from 350 Ω gauges and puts the data on the car's CAN telemetry bus. Designed in KiCad 10.
 
 - Full KiCad source: https://github.com/lhr-solar/VCAT-StrainGaugeBoard
 - Schematic PDF: [`StrainGaugeBoard_schematic.pdf`](StrainGaugeBoard_schematic.pdf)
@@ -8,7 +8,7 @@ A dual-channel strain gauge acquisition board for **Longhorn Racing Solar** (UT 
 
 ## The feature I'm proudest of: one-wire shunt calibration with a "~1000 µε" resistor
 
-Gauges on a race car get mounted with epoxy, routed through a harness, and knocked around. So the most common question during bring-up and at the track is *"Is this channel actually reading correctly, or is something open or miswired?"* Answering that by loading the suspension with a known force is slow.
+Gauges on a race car get mounted with epoxy resin and routed through a harness. So the most common question during bring-up and at the track is *"Is this channel actually reading correctly, or is something open or miswired?"* Answering that by loading the suspension with a known force is slow.
 
 Instead, each bridge has a **174 kΩ shunt resistor** that a **TS5A3166 analog switch** can place across one arm. A single MCU GPIO line (`SHUNT_CAL`) drives the switches on both channels at once.
 
@@ -19,7 +19,7 @@ The value is chosen so that the shunt simulates a round number of strain:
 ε_sim = (ΔR/R) / GF = 0.2007 % / 2.0 ≈ 1 004 µε   (≈ 1000 µε)
 ```
 
-With one firmware command, both channels should jump by about 1000 µε. That one step-response check confirms the whole signal chain: gauge wiring, bridge completion, input filter, ADC, gain setting, SPI, firmware scaling, and CAN. It also gives a per-channel gain correction in the field, with no calibrated load needed. Using an analog switch rather than a jumper or relay keeps the check fast enough to run at every power-up.
+With one firmware command, both channels should jump by about 1000 µε (micro strain). That one step-response check confirms the whole signal chain: gauge wiring, bridge completion, input filter, ADC, gain setting, SPI, firmware scaling, and CAN. It also gives a per-channel gain correction in the field, with no calibrated load needed. Using an analog switch rather than a jumper or relay keeps the check fast enough to run at every power-up.
 
 ## Other design choices
 
